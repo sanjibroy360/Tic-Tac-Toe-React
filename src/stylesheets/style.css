@@ -74,5 +74,16 @@ table {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+}
+
+
+.board_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+}
+
+.move_list {
+    margin-left: 20px;
 }

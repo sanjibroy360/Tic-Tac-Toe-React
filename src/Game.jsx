@@ -11,16 +11,17 @@ class Game extends React.Component {
         },
       ],
       xIsNext: true,
-      stepNumber: 0
+      stepNumber: 0,
     };
   }
 
   handleClick = (i) => {
-    var history = this.state.history.slice(0, this.state.stepNumber + 1)
+    var history = this.state.history.slice(0, this.state.stepNumber + 1);
     var current = history[history.length - 1];
     var squares = current.squares.slice();
 
-    if (this.getWinner(squares) || squares[i]) {//Check winner or already filled
+    if (this.getWinner(squares) || squares[i]) {
+      //Check winner or already filled
       return;
     }
 
@@ -36,9 +37,6 @@ class Game extends React.Component {
       xIsNext: !this.state.xIsNext,
     });
   };
-
-
-
 
   getWinner(squares = []) {
     const winningCombination = [
@@ -62,10 +60,10 @@ class Game extends React.Component {
   }
 
   jumpTo(move) {
-      this.setState({
-         stepNumber: move,
-         xIsNext: (move % 2 === 0) 
-      })
+    this.setState({
+      stepNumber: move,
+      xIsNext: move % 2 === 0,
+    });
   }
 
   render() {
@@ -73,7 +71,7 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.getWinner(current.squares);
-    
+
     let status;
 
     let moves = history.map((step, move) => {
@@ -82,7 +80,7 @@ class Game extends React.Component {
         <li>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
-      )
+      );
     });
 
     return (
@@ -90,13 +88,15 @@ class Game extends React.Component {
         {winner
           ? `Winner is : ${winner}`
           : `Next is : ${this.state.xIsNext ? "X" : "0"}`}
-        <Board
-          onClick={this.handleClick}
-          squares={current.squares}
-          xIsNext={this.state.xIsNext}
-        />
+        <div className="board_flex">
+          <Board
+            onClick={this.handleClick}
+            squares={current.squares}
+            xIsNext={this.state.xIsNext}
+          />
 
-        <ol>{moves}</ol>
+          <ol className="move_list">{moves}</ol>
+        </div>
       </>
     );
   }
